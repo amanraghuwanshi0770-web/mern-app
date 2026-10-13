@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🛒 AR E-Commerce
 
 A full-stack E-Commerce web application built using React.js, Node.js, Express.js, and MongoDB. The project provides an online shopping experience with user authentication, product management, cart functionality, checkout, and Razorpay test payment integration.
@@ -173,3 +174,7 @@ GitHub: [amanraghuwanshi0770-web](https://github.com/amanraghuwanshi0770-web)
 ---
 
 ⭐ If you like this project, consider giving it a star on GitHub!
+=======
+# mern-app
+e-commarce-web
+>>>>>>> 3b49e0fe5d82ab268c9ac7543d22d2a33135a394

@@ -5,12 +5,7 @@ import PasswordField from "../components/PasswordField";
 import Button from "../components/Button";
 import { signupUser } from "../api/api";
 
-import {
-  validateName,
-  validateEmail,
-  validateSignupPassword,
-  validateConfirmPassword,
-} from "../utils/validation";
+import {validateName,validateEmail,validateSignupPassword,validateConfirmPassword,} from "../utils/validation";
 
 function Signup() {
   const navigate = useNavigate();
@@ -31,12 +26,8 @@ function Signup() {
     e.preventDefault();
     setServerError("");
 
-    // mobile keyboard ke extra space / capital letters hatao
-    const cleanName = name.trim();
-    const cleanEmail = email.trim().toLowerCase();
-
-    const nameErr = validateName(cleanName);
-    const emailErr = validateEmail(cleanEmail);
+    const nameErr = validateName(name);
+    const emailErr = validateEmail(email);
     const passwordErr = validateSignupPassword(password);
     const confirmErr = validateConfirmPassword(password, confirmPassword);
 
@@ -48,25 +39,14 @@ function Signup() {
     if (nameErr || emailErr || passwordErr || confirmErr) {
       return;
     }
-
     setLoading(true);
     try {
-      await signupUser({
-        name: cleanName,
-        email: cleanEmail,
-        password,
-      });
+      await signupUser({ name, email, password });
       navigate("/login");
     } catch (error) {
-      console.log("Signup error:", error);
-      setServerError(
-        error.response?.data?.message ||
-          error.message ||
-          "Signup failed"
-      );
-    } finally {
-      setLoading(false);
+      setServerError(error.response?.data?.message || "Signup failed");
     }
+    setLoading(false);
   };
 
   return (
@@ -78,66 +58,39 @@ function Signup() {
         {serverError && <p className="error-message">{serverError}</p>}
 
         <form onSubmit={handleSignup} noValidate>
-          <InputField
-            label="Name"
-            name="name"
-            value={name}
-            onChange={(e) => {
+          <InputField label="Name" name="name" value={name} onChange={(e) => {
               setName(e.target.value);
               setNameError("");
             }}
             placeholder="Enter your name"
-            error={nameError}
-          />
+            error={nameError}/>
 
-          <InputField
-            label="Email"
-            type="email"
-            name="email"
-            autoCapitalize="none"
-            autoCorrect="off"
-            value={email}
-            onChange={(e) => {
+          <InputField label="Email" type="email" name="email" value={email} onChange={(e) => {
               setEmail(e.target.value);
               setEmailError("");
             }}
             placeholder="Enter email"
-            error={emailError}
-          />
+            error={emailError}/>
 
-          <PasswordField
-            label="Password"
-            name="password"
-            value={password}
-            onChange={(e) => {
+          <PasswordField label="Password" name="password" value={password} onChange={(e) => {
               setPassword(e.target.value);
               setPasswordError("");
             }}
             placeholder="Enter password"
-            error={passwordError}
-          />
+            error={passwordError}/>
 
-          <PasswordField
-            label="Confirm Password"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => {
+          <PasswordField label="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={(e) => {
               setConfirmPassword(e.target.value);
               setConfirmPasswordError("");
             }}
             placeholder="Confirm password"
-            error={confirmPasswordError}
-          />
+            error={confirmPasswordError}/>
 
           <Button text="Sign Up" loading={loading} />
         </form>
-
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
+        <p>Already have an account? <Link to="/login">Login</Link></p>
       </div>
     </div>
-  );
+  )
 }
-
 export default Signup;

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Swal from "sweetalert2";
-import { CartContext } from "../context/cartcontext";
+import { CartContext } from "../context/CartContext";
 
 function Sidebar() {
   const { cart, setCart } = useContext(CartContext);

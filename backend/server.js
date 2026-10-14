@@ -13,7 +13,11 @@ import checkoutRoutes from "./routes/order.route.js"
 dotenv.config();
 const app = express();
 app.use(cors({
-  origin: ["https://mern-app-fawn.vercel.app", "http://localhost:5173"],
+  origin: [
+    "https://mern-app-e2z4.vercel.app",
+    "https://mern-app-fawn.vercel.app",
+    "http://localhost:5173"
+  ],
   credentials: true
 }));
 app.use(express.json());

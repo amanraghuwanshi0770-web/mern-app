@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../context/cartcontext";
+import { CartContext } from "../context/CartContext";
 import logoimage from "../assets/AR E-Commerce Shopping Cart Logo.png";
 import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";

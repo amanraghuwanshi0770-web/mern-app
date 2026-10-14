@@ -1,6 +1,6 @@
 import { useEffect, useState ,useContext} from "react";
 import { getProducts } from "../api/api";
-import { CartContext } from "../context/cartcontext";
+import { CartContext } from "../context/CartContext";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa"
 import { useSearchParams } from "react-router-dom";

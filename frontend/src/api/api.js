@@ -41,4 +41,8 @@ export const createPaymentOrder = (data) =>
 export const verifyPayment = (data) => 
   api.post("/api/payment/verify", data);
 
+export const getMyOrders = () => {
+  return api.get("/api/checkout/my-orders");
+};
+
 export default api;

@@ -133,15 +133,11 @@ function Checkout() {
       </form>
 
       {message.text && (
-        <p role="alert" className={`checkout-message ${message.type}`}>
-          {message.text}
-        </p>
+        <p role="alert" className={`checkout-message ${message.type}`}>{message.text}</p>
       )}
 
       {placed && (
-        <button type="button" onClick={() => navigate("/products")}>
-          Continue Shopping
-        </button>
+        <button type="button" onClick={() => navigate("/products")}>Continue Shopping</button>
       )}
     </div>
   );

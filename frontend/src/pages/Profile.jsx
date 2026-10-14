@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getprofile, updateprofile } from "../api/api";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -48,7 +48,7 @@ function Profile() {
   }
 
   if (!user) return 
-  <div class="loader"></div>
+  <div class="loader">Loding..</div>
 
   return (
     <div className="profile-container">
@@ -59,7 +59,9 @@ function Profile() {
         </div>
 
         <div className="sidebar-section">
-          <div className="sidebar-title"><h3>MY ORDERS</h3></div>
+          <div className="sidebar-title">
+            <Link to='/myorder'>MY ORDERS</Link>
+            </div>
         </div>
 
         <button className="login-button" onClick={handleLogout}>

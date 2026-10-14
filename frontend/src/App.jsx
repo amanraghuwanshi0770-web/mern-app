@@ -13,6 +13,7 @@ import { ProtectedRoute, PublicRoute } from "./components/ProtectedRoute";
 import "./index.css";
 import Sidebar from "./pages/Sidebar";
 import Checkout from "./pages/CheckOut";
+import MyOrder from "./pages/MyOrder";
 
 function MainLayout() {
   return (
@@ -60,6 +61,11 @@ function App() {
           <Route path="/checkout" element={
           <ProtectedRoute>
             <Checkout/>
+          </ProtectedRoute>}/>
+
+          <Route path="/myorder" element={
+          <ProtectedRoute>
+            <MyOrder/>
           </ProtectedRoute>}/>
 
           </Route>

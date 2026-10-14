@@ -1,11 +1,22 @@
-
-function InputField({ label, error, ...props }) {
+function InputField({
+  label,type = "text",
+   name, value,
+  onChange,
+  error,
+  placeholder,
+}) {
   return (
-    <div className="input-group">
+    <div className="form-group">
       <label>{label}</label>
-      <input {...props} />
-      {error && <span className="error-message">{error}</span>}
+      <input type={type} name={name}
+        value={value} onChange={onChange} placeholder={placeholder} className="form-input"/>
+          {error && (
+          <div className="error-message">
+          <span className="error-icon">!</span>
+          <span>{error}</span>
+        </div>
+      )}
     </div>
-  );
-}
-export default InputField;
+  )}
+
+export default InputField

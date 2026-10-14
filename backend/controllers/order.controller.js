@@ -77,4 +77,27 @@ const createOrder = async (req, res) => {
   }
 };
 
-export default createOrder;
+ const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({
+      user: req.userId,
+    })
+      .populate("items.product", "name image price")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: orders.length,
+      orders,
+    });
+  } catch (error) {
+    console.error("Get My Orders Error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch orders",
+    });
+  }
+};
+
+export {getMyOrders,createOrder}

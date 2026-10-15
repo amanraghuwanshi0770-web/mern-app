@@ -12,7 +12,11 @@ import checkoutRoutes from "./routes/order.route.js"
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ["https://mern-app-seven-ochre.vercel.app"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 
 connectDB();

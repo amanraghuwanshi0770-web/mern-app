@@ -12,10 +12,20 @@ import checkoutRoutes from "./routes/order.route.js"
 
 dotenv.config();
 const app = express();
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://mern-app-seven-ochre.vercel.app",
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",") : []),
+];
+
 app.use(cors({
-  origin: ["https://mern-app-seven-ochre.vercel.app"],
+  origin: (origin, cb) => {
+    // origin undefined = Postman/server-to-server, allow
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    cb(new Error("Not allowed by CORS"));
+  },
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(express.json());
 

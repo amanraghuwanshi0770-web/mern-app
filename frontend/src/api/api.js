@@ -1,6 +1,7 @@
 
 import axios from "axios";
 
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
   headers: {
@@ -47,6 +48,6 @@ export const verifyPayment = (data) =>
   api.post("/api/payment/verify", data);
 
 export const getMyOrders = () =>
-  api.get("/api/checkout/my-orders");
+  api.get("/api/order/my-orders");
 
 export default api;

@@ -3,53 +3,55 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import connectDB from "./config/db.js";
-import authRoutes from "./routes/authRoutes.js"
+import authRoutes from "./routes/authRoutes.js";
 import ProductRoutes from "./routes/product.route.js";
-import profileRoutes from  "./routes/profile.route.js"
-import orderRoutes from "./routes/order.route.js"
-import paymentRoutes from "./routes/payment.route.js"
-import checkoutRoutes from "./routes/order.route.js"
+import profileRoutes from "./routes/profile.route.js";
+import orderRoutes from "./routes/order.route.js";
+import paymentRoutes from "./routes/payment.route.js";
 
 dotenv.config();
+
 const app = express();
-<<<<<<< HEAD
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://mern-app-seven-ochre.vercel.app",
-  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",") : []),
+  ...(process.env.FRONTEND_URL
+    ? process.env.FRONTEND_URL.split(",").map((url) => url.trim())
+    : []),
 ];
 
-app.use(cors({
-  origin: (origin, cb) => {
-    // origin undefined = Postman/server-to-server, allow
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-    cb(new Error("Not allowed by CORS"));
-  },
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-=======
- app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true, 
->>>>>>> 482ac98 (Fix CORS configuration)
-}));
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return cb(null, true);
+      }
+
+      return cb(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 connectDB();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", ProductRoutes);
-app.use("/api/profile",profileRoutes)
-app.use("/api/order",orderRoutes)
-app.use("/api/payment",paymentRoutes)
-app.use("/api/checkout",checkoutRoutes)
+app.use("/api/profile", profileRoutes);
+app.use("/api/order", orderRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.send("MERN Auth Backend is running...");
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on :${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

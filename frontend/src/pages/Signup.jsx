@@ -41,7 +41,7 @@ function Signup() {
     }
     setLoading(true);
     try {
-      await signupUser({ name: name.trim, email: email.trim(), password,});
+      await signupUser(name,email,password);
       navigate("/login");
     } catch (error) {
       setServerError(error.response?.data?.message || "Signup failed. Please try again.");

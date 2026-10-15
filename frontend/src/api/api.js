@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -27,22 +27,21 @@ export const getProducts = () =>
   api.get("/api/products");
 
 export const getprofile = () =>
-  api.get("/api/profile")
+  api.get("/api/profile");
 
 export const updateprofile = (data) =>
-  api.get("/api/profile",data)
+  api.put("/api/profile", data);
 
 export const createOrder = (data) =>
   api.post("/api/order", data);
 
-export const createPaymentOrder = (data) => 
+export const createPaymentOrder = (data) =>
   api.post("/api/payment/create-order", data);
 
-export const verifyPayment = (data) => 
+export const verifyPayment = (data) =>
   api.post("/api/payment/verify", data);
 
-export const getMyOrders = () => {
-  return api.get("/api/checkout/my-orders");
-};
+export const getMyOrders = () =>
+  api.get("/api/checkout/my-orders");
 
 export default api;

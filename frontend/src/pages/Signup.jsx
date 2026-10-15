@@ -41,12 +41,12 @@ function Signup() {
     }
     setLoading(true);
     try {
-      await signupUser({ name, email, password });
+      await signupUser({ name: name.trim, email: email.trim(), password,});
       navigate("/login");
     } catch (error) {
-      setServerError(error.response?.data?.message || "Signup failed");
-    }
-    setLoading(false);
+      setServerError(error.response?.data?.message || "Signup failed. Please try again.");
+    }finally{
+    setLoading(false)}
   };
 
   return (

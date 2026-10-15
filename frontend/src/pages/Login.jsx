@@ -32,7 +32,7 @@ function Login() {
 
     setLoading(true);
     try {
-      const response = await loginUser({ email, password });
+      const response = await loginUser({ email: email.trim(), password });
       const { token, user } = response.data;
 
       localStorage.setItem("token", token);
@@ -40,9 +40,9 @@ function Login() {
 
       navigate("/home", { replace: true });
     } catch (error) {
-      setServerError(error.response?.data?.message || "Login failed");
-    }
-    setLoading(false);
+      setServerError(error.response?.data?.message || error.message || "Login failed. Please try again.");
+    }finally{
+    setLoading(false)}
   };
 
   return (

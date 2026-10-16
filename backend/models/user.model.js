@@ -34,10 +34,23 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+
+    resetOtpHash: {
+    type: String,
+    default: null,
   },
-  {
-    timestamps: true,
-  }
+
+   resetOtpExpires: {
+   type: Date,
+   default: null,
+  },
+
+   resetOtpVerified: {
+   type: Boolean,
+   default: false,
+  },
+  
+},{timestamps: true}
 );
 
 const User = mongoose.model('User', userSchema);

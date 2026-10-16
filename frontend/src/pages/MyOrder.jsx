@@ -21,7 +21,7 @@ function MyOrder() {
     },[])
 
     if(loding){
-        return  <p  className='loader'style={{ textAlign: "center", fontSize: "18px", color: "gray", marginTop: "40px" }}></p>
+        return  <p className='loader' style={{ textAlign: "center", fontSize: "18px", color: "gray", marginTop: "40px" }}></p>
     }
 
       if(error){

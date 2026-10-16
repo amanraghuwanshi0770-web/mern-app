@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap");
 
 /* =====================================================
@@ -25,7 +26,7 @@
   /* Text */
   --text: #2a4752;
   --text-muted: #62808a;
-  --text-faint: #93a8af;
+  --text-faint: #7d949c;
 
   /* Status */
   --success-bg: #e8f8ef;
@@ -2256,6 +2257,187 @@ form {
 @keyframes float {
   0%, 100% { translate: 0 0; }
   50% { translate: 0 -12px; }
+}
+
+/* =====================================================
+   POLISH LAYER (extra finishing touches)
+   ===================================================== */
+@view-transition { navigation: auto; }
+
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+body { font-feature-settings: "ss01", "cv11"; }
+
+/* ---- Hero: gradient headline + dotted grid ---- */
+.hero-content h1 span {
+  background: linear-gradient(90deg, #ffd75e, var(--sun) 50%, #ff9d3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--sun);
+}
+
+.hero-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
+  mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---- Shine sweep on main buttons ---- */
+.btn-primary,
+.save-btn,
+.order-btn,
+.product-buttons button:last-child,
+.checkout-page button:not(:disabled) {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after,
+.save-btn::after,
+.order-btn::after,
+.product-buttons button:last-child::after,
+.checkout-page button:not(:disabled)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after,
+.save-btn:hover::after,
+.order-btn:hover::after,
+.product-buttons button:last-child:hover::after,
+.checkout-page button:hover:not(:disabled)::after {
+  left: 130%;
+  transition: left 0.7s ease;
+}
+
+/* ---- Staggered entrance for grids (backwards fill => hover lift still works) ---- */
+.features-grid > *,
+.products-grid > *,
+.orders-list > * { animation: rise 0.55s ease backwards; }
+
+.features-grid > :nth-child(2), .products-grid > :nth-child(2), .orders-list > :nth-child(2) { animation-delay: 0.06s; }
+.features-grid > :nth-child(3), .products-grid > :nth-child(3), .orders-list > :nth-child(3) { animation-delay: 0.12s; }
+.features-grid > :nth-child(4), .products-grid > :nth-child(4), .orders-list > :nth-child(4) { animation-delay: 0.18s; }
+.products-grid > :nth-child(5) { animation-delay: 0.24s; }
+.products-grid > :nth-child(6) { animation-delay: 0.30s; }
+.products-grid > :nth-child(7) { animation-delay: 0.36s; }
+.products-grid > :nth-child(n+8) { animation-delay: 0.42s; }
+
+/* ---- Product card accent bar ---- */
+.product-card { position: relative; }
+
+.product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sun), var(--sun-dark));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  z-index: 6;
+}
+
+.product-card:hover::before { transform: scaleX(1); }
+
+/* ---- Navbar active link (React Router NavLink adds .active) ---- */
+.nav-menu li a.active { color: var(--ink); }
+.nav-menu li a.active::after { transform: scaleX(1); }
+
+/* ---- Cart: total bar stays visible while scrolling ---- */
+.total-price {
+  position: sticky;
+  bottom: 14px;
+  z-index: 5;
+}
+
+/* ---- Orders: status accent on the left ---- */
+.order-card {
+  box-shadow: inset 4px 0 0 var(--sun), var(--shadow-sm);
+}
+
+.order-card:hover {
+  box-shadow: inset 4px 0 0 var(--sun-dark), var(--shadow-lg);
+}
+
+/* ---- Utilities you can use in JSX ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--sun-soft);
+  color: var(--ink);
+  border-radius: var(--r-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badge-sale {
+  background: var(--coral);
+  color: #fff;
+}
+
+.skeleton {
+  color: transparent !important;
+  background: linear-gradient(90deg, #eaf0f2 25%, #f6f9fa 37%, #eaf0f2 63%);
+  background-size: 400% 100%;
+  border-radius: var(--r-md);
+  animation: shimmer 1.4s ease infinite;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 1000;
+  max-width: min(92vw, 420px);
+  padding: 14px 22px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transform: translateX(-50%);
+  animation: toast-in 0.4s ease backwards;
+}
+
+.toast.success { background: var(--success-text); }
+.toast.error { background: var(--coral-dark); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ---- Print ---- */
+@media print {
+  .navbar, .footer, .search-box, button, .left-arrow, .right-arrow { display: none !important; }
+  body { background: #fff; }
+  .order-card, .cart-page, .checkout-page { box-shadow: none; break-inside: avoid; }
 }
 
 /* =====================================================

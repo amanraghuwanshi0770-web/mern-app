@@ -48,8 +48,7 @@ function Profile() {
   }
 
   if (!user) return 
-  <div class="loader">Loding..</div>
-
+ <p  className='loader'style={{ textAlign: "center", fontSize: "18px", color: "gray", marginTop: "40px" }}>fdddddd</p>
   return (
     <div className="profile-container">
       <div className="profile-sidebar">

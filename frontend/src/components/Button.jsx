@@ -11,6 +11,7 @@ function Button({ text, loading }) {
       )}
     </button>
   );
+  
 }
 
 export default Button;

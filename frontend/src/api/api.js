@@ -23,11 +23,16 @@ export const loginUser = (data) =>
   api.post("/api/auth/login", data);
 
 export const signupUser = (name, email, password) =>
-  api.post("/api/auth/signup", {
-    name,
-    email,
-    password,
-  });
+  api.post("/api/auth/signup", {name,email,password});
+
+export const forgetPassword = (email) =>
+  api.post("/api/auth/forget-password",{email});
+
+export const verifyResetOtp = (email,otp) =>
+  api.post("/api/auth/verify-reset-otp",{email,otp});
+
+export const resetPassword = (email,newPassword) =>
+  api.post("/api/auth/reset-Password",{email,newPassword})
 
 export const getProducts = () =>
   api.get("/api/products");

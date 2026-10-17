@@ -14,6 +14,9 @@ import "./index.css";
 import Sidebar from "./pages/Sidebar";
 import Checkout from "./pages/CheckOut";
 import MyOrder from "./pages/MyOrder";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyResetOtp from "./pages/VerifyResetOtp";
+import ResetPassword from "./pages/ResetPassword";
 
 function MainLayout() {
   return (
@@ -68,6 +71,21 @@ function App() {
             <MyOrder/>
           </ProtectedRoute>}/>
 
+          <Route path="/forgot-password" element={
+          <PublicRoute>
+          <ForgotPassword />
+          </PublicRoute>}/>
+
+           <Route path="/verify-reset-otp" element={
+          <PublicRoute>
+          <VerifyResetOtp />
+          </PublicRoute>}/>
+
+           <Route path="/reset-password" element={
+          <PublicRoute>
+          <ResetPassword/>
+          </PublicRoute>}/>
+ 
           </Route>
 
         <Route path="/"element={<Navigate to="/login" replace />} />

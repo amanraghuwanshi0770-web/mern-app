@@ -67,6 +67,10 @@ function Login() {
               setPassword(e.target.value);
               setPasswordError("")}}
             placeholder="Enter password" error={passwordError}/>
+
+            <div className="forgot-password-link">
+            <Link to="/forgot-password"> Forgot Password?</Link>
+            </div>
             
           <Button text="Login" loading={loading}/>
         </form>

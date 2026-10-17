@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap");
 
 /* =====================================================
@@ -102,7 +101,7 @@ a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
 
 /* =====================================================
-   AUTH
+   AUTH (login, signup, forgot password, OTP, reset)
    ===================================================== */
 .auth-container,
 .login-container {
@@ -153,7 +152,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: -0.02em;
 }
 
-.auth-card p,
+.auth-card > p,
 .login-subtitle {
   margin-bottom: 28px;
   color: var(--text-muted);
@@ -178,8 +177,11 @@ form {
   font-weight: 600;
 }
 
-.form-input {
+/* .form-input class OR plain input inside .form-group */
+.form-input,
+.form-group input:where(:not([type="radio"]):not([type="checkbox"])) {
   width: 100%;
+  min-width: 0;
   padding: 13px 16px;
   background: var(--surface-2);
   color: var(--ink);
@@ -190,17 +192,20 @@ form {
   transition: border-color var(--t), box-shadow var(--t), background var(--t);
 }
 
-.form-input:hover { border-color: var(--line-strong); }
+.form-input:hover,
+.form-group input:hover { border-color: var(--line-strong); }
 
-.form-input:focus {
+.form-input:focus,
+.form-group input:focus {
   background: var(--surface);
   border-color: var(--ink);
   box-shadow: var(--ring);
 }
 
-.form-input::placeholder { color: var(--text-faint); }
+.form-input::placeholder,
+.form-group input::placeholder { color: var(--text-faint); }
 
-/* Password */
+/* Password show/hide */
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -208,11 +213,15 @@ form {
   align-items: center;
 }
 
-.password-wrapper .form-input { padding-right: 78px; }
+.password-wrapper .form-input,
+.password-wrapper input { padding-right: 78px; }
 
-.toggle-password-btn {
+.toggle-password-btn,
+.toggle-password {
   position: absolute;
+  top: 50%;
   right: 8px;
+  transform: translateY(-50%);
   padding: 6px 12px;
   background: var(--bg);
   color: var(--ink);
@@ -223,7 +232,8 @@ form {
   transition: background var(--t);
 }
 
-.toggle-password-btn:hover { background: var(--sun-soft); }
+.toggle-password-btn:hover,
+.toggle-password:hover { background: var(--sun-soft); }
 
 .error-message {
   display: flex;
@@ -233,6 +243,7 @@ form {
   color: var(--coral-dark);
   font-size: 0.82rem;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 .error-icon {
@@ -249,7 +260,30 @@ form {
   font-weight: 800;
 }
 
-.btn-primary {
+.auth-card .error-message {
+  margin: 0 0 18px;
+  padding: 11px 16px;
+  background: var(--error-bg);
+  color: var(--coral-dark);
+  border: 1px solid var(--error-line);
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.success-message {
+  padding: 11px 16px;
+  background: var(--success-bg);
+  color: var(--success-text);
+  border: 1px solid var(--success-line);
+  border-radius: var(--r-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Primary button (also used for submit buttons inside auth cards) */
+.btn-primary,
+.auth-card form > button:not(.toggle-password):not(.toggle-password-btn) {
   width: 100%;
   margin-top: 6px;
   padding: 14px 18px;
@@ -263,19 +297,54 @@ form {
   transition: transform var(--t), box-shadow var(--t), filter var(--t);
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-primary:hover:not(:disabled),
+.auth-card form > button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(240, 168, 0, 0.45);
   filter: brightness(1.03);
 }
 
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:active,
+.auth-card form > button:active { transform: translateY(0); }
 
-.btn-primary:disabled {
+.btn-primary:disabled,
+.auth-card form > button:disabled {
   background: #ebe7d6;
   color: var(--text-faint);
   box-shadow: none;
   cursor: not-allowed;
+}
+
+/* Links inside auth cards */
+.forgot-password-link {
+  margin: -4px 0 4px;
+  text-align: right;
+}
+
+.forgot-password-link a,
+.auth-card a {
+  color: var(--link);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.forgot-password-link a:hover,
+.auth-card a:hover { text-decoration: underline; }
+
+.auth-card > p:last-child {
+  margin: 22px 0 0;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+/* OTP input: big, centered, spaced digits */
+.form-group input.otp-input,
+.otp-input,
+.form-group input[name="otp"] {
+  text-align: center;
+  letter-spacing: 0.5em;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .home-card button {
@@ -388,7 +457,7 @@ form {
 .nav-menu li a:hover { color: var(--ink); }
 .nav-menu li a:hover::after { transform: scaleX(1); }
 
-/* Global `form` rule ko override karne ke liye !important */
+/* !important is needed to override the global `form` rule */
 .search-box {
   display: flex !important;
   flex-direction: row !important;
@@ -575,6 +644,18 @@ form {
   z-index: -1;
 }
 
+.hero-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
+  mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
+  z-index: -1;
+  pointer-events: none;
+}
+
 .background-pattern {
   position: absolute;
   left: -90px;
@@ -616,7 +697,14 @@ form {
   letter-spacing: -0.03em;
 }
 
-.hero-content h1 span { color: var(--sun); }
+/* Gradient headline accent */
+.hero-content h1 span {
+  color: var(--sun);
+  background: linear-gradient(90deg, #ffd75e, var(--sun) 50%, #ff9d3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .hero-content p {
   max-width: 500px;
@@ -716,6 +804,7 @@ form {
 }
 
 .about-card {
+  position: relative;
   width: 310px;
   min-height: 290px;
   padding: 38px;
@@ -727,7 +816,6 @@ form {
   border: 1px solid var(--line);
   border-radius: var(--r-xl);
   box-shadow: var(--shadow-md);
-  position: relative;
   overflow: hidden;
 }
 
@@ -907,6 +995,7 @@ form {
 }
 
 .product-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -923,6 +1012,21 @@ form {
   box-shadow: var(--shadow-lg);
   transform: translateY(-6px);
 }
+
+/* Accent bar on hover */
+.product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sun), var(--sun-dark));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  z-index: 6;
+}
+
+.product-card:hover::before { transform: scaleX(1); }
 
 .product-image {
   position: relative;
@@ -984,7 +1088,7 @@ form {
   transform: translateY(-50%) scale(1.1);
 }
 
-/* Touch devices par arrows hamesha dikhein */
+/* Always show arrows on touch devices */
 @media (hover: none) {
   .left-arrow,
   .right-arrow { opacity: 1; }
@@ -1251,7 +1355,11 @@ form {
   text-decoration: underline;
 }
 
+/* Total bar stays visible while scrolling */
 .total-price {
+  position: sticky;
+  bottom: 14px;
+  z-index: 5;
   margin-top: 22px;
   padding: 18px 24px;
   display: flex;
@@ -1862,12 +1970,12 @@ form {
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: inset 4px 0 0 var(--sun), var(--shadow-sm);
   transition: box-shadow var(--t), transform var(--t);
 }
 
 .order-card:hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: inset 4px 0 0 var(--sun-dark), var(--shadow-lg);
   transform: translateY(-3px);
 }
 
@@ -1950,7 +2058,7 @@ form {
   flex-shrink: 0;
 }
 
-/* Scoped, taaki products page ke .product-info par asar na pade */
+/* Scoped so it doesn't affect .product-info on the products page */
 .order-product .product-info {
   flex: 1;
   min-width: 0;
@@ -2259,8 +2367,18 @@ form {
   50% { translate: 0 -12px; }
 }
 
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
 /* =====================================================
-   POLISH LAYER (extra finishing touches)
+   POLISH LAYER
    ===================================================== */
 @view-transition { navigation: auto; }
 
@@ -2269,33 +2387,13 @@ p { text-wrap: pretty; }
 
 body { font-feature-settings: "ss01", "cv11"; }
 
-/* ---- Hero: gradient headline + dotted grid ---- */
-.hero-content h1 span {
-  background: linear-gradient(90deg, #ffd75e, var(--sun) 50%, #ff9d3d);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--sun);
-}
-
-.hero-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.4px);
-  background-size: 26px 26px;
-  -webkit-mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
-  mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* ---- Shine sweep on main buttons ---- */
+/* Shine sweep on main buttons */
 .btn-primary,
 .save-btn,
 .order-btn,
 .product-buttons button:last-child,
-.checkout-page button:not(:disabled) {
+.checkout-page button:not(:disabled),
+.auth-card form > button:not(:disabled) {
   position: relative;
   overflow: hidden;
 }
@@ -2304,7 +2402,8 @@ body { font-feature-settings: "ss01", "cv11"; }
 .save-btn::after,
 .order-btn::after,
 .product-buttons button:last-child::after,
-.checkout-page button:not(:disabled)::after {
+.checkout-page button:not(:disabled)::after,
+.auth-card form > button:not(:disabled)::after {
   content: "";
   position: absolute;
   top: 0;
@@ -2320,12 +2419,13 @@ body { font-feature-settings: "ss01", "cv11"; }
 .save-btn:hover::after,
 .order-btn:hover::after,
 .product-buttons button:last-child:hover::after,
-.checkout-page button:hover:not(:disabled)::after {
+.checkout-page button:hover:not(:disabled)::after,
+.auth-card form > button:hover:not(:disabled)::after {
   left: 130%;
   transition: left 0.7s ease;
 }
 
-/* ---- Staggered entrance for grids (backwards fill => hover lift still works) ---- */
+/* Staggered entrance for grids (backwards fill keeps hover lift working) */
 .features-grid > *,
 .products-grid > *,
 .orders-list > * { animation: rise 0.55s ease backwards; }
@@ -2338,44 +2438,11 @@ body { font-feature-settings: "ss01", "cv11"; }
 .products-grid > :nth-child(7) { animation-delay: 0.36s; }
 .products-grid > :nth-child(n+8) { animation-delay: 0.42s; }
 
-/* ---- Product card accent bar ---- */
-.product-card { position: relative; }
-
-.product-card::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--sun), var(--sun-dark));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s ease;
-  z-index: 6;
-}
-
-.product-card:hover::before { transform: scaleX(1); }
-
-/* ---- Navbar active link (React Router NavLink adds .active) ---- */
+/* Navbar active link (React Router NavLink adds .active) */
 .nav-menu li a.active { color: var(--ink); }
 .nav-menu li a.active::after { transform: scaleX(1); }
 
-/* ---- Cart: total bar stays visible while scrolling ---- */
-.total-price {
-  position: sticky;
-  bottom: 14px;
-  z-index: 5;
-}
-
-/* ---- Orders: status accent on the left ---- */
-.order-card {
-  box-shadow: inset 4px 0 0 var(--sun), var(--shadow-sm);
-}
-
-.order-card:hover {
-  box-shadow: inset 4px 0 0 var(--sun-dark), var(--shadow-lg);
-}
-
-/* ---- Utilities you can use in JSX ---- */
+/* Utilities for JSX */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -2403,11 +2470,6 @@ body { font-feature-settings: "ss01", "cv11"; }
   user-select: none;
 }
 
-@keyframes shimmer {
-  0% { background-position: 100% 50%; }
-  100% { background-position: 0 50%; }
-}
-
 .toast {
   position: fixed;
   left: 50%;
@@ -2428,12 +2490,7 @@ body { font-feature-settings: "ss01", "cv11"; }
 .toast.success { background: var(--success-text); }
 .toast.error { background: var(--coral-dark); }
 
-@keyframes toast-in {
-  from { opacity: 0; transform: translate(-50%, 16px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
-}
-
-/* ---- Print ---- */
+/* Print */
 @media print {
   .navbar, .footer, .search-box, button, .left-arrow, .right-arrow { display: none !important; }
   body { background: #fff; }
@@ -2441,7 +2498,7 @@ body { font-feature-settings: "ss01", "cv11"; }
 }
 
 /* =====================================================
-   RESPONSIVE (bade se chhote breakpoint)
+   RESPONSIVE (largest to smallest breakpoint)
    ===================================================== */
 @media (max-width: 1100px) {
   .hero-grid { gap: 30px; }
@@ -2676,6 +2733,13 @@ body { font-feature-settings: "ss01", "cv11"; }
   .auth-card h1,
   .login-card h1 { font-size: 1.5rem; }
 
+  .form-group input.otp-input,
+  .otp-input,
+  .form-group input[name="otp"] {
+    font-size: 1.2rem;
+    letter-spacing: 0.35em;
+  }
+
   .nav-actions { gap: 10px; }
   .login-button { padding: 9px 16px; }
 
@@ -2773,6 +2837,13 @@ body { font-feature-settings: "ss01", "cv11"; }
 }
 
 @media (max-width: 480px) {
+  .auth-container,
+  .login-container { padding: 16px; }
+
+  .auth-card,
+  .login-card,
+  .home-card { border-radius: var(--r-lg); }
+
   .logo img { height: 40px; }
   .nav-menu li a { font-size: 0.82rem; }
 

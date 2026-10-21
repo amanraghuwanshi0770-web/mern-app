@@ -46,9 +46,15 @@ function Profile() {
     localStorage.removeItem("user");
     navigate("/login", { replace: true });
   }
+    
+if (!user) {
+  return (
+    <div className="profile-container profile-loading">
+      <p className="loader"></p>
+    </div>
+  );
+}
 
-  if (!user) return 
- <p  className='loader'style={{ textAlign: "center", fontSize: "18px", color: "gray", marginTop: "40px" }}>fdddddd</p>
   return (
     <div className="profile-container">
       <div className="profile-sidebar">

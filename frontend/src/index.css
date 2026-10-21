@@ -54,6 +54,9 @@
     "Helvetica Neue", Arial, sans-serif;
 }
 
+
+
+
 /* =====================================================
    BASE
    ===================================================== */
@@ -62,6 +65,13 @@
   margin: 0;
   padding: 0;
 }
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 
 html {
   scroll-behavior: smooth;
@@ -90,7 +100,6 @@ a { color: inherit; text-decoration: none; }
   outline-offset: 2px;
 }
 
-/* Slim scrollbar (desktop) */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb {
@@ -100,9 +109,6 @@ a { color: inherit; text-decoration: none; }
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
 
-/* =====================================================
-   AUTH (login, signup, forgot password, OTP, reset)
-   ===================================================== */
 .auth-container,
 .login-container {
   min-height: 100vh;
@@ -258,6 +264,18 @@ form {
   border-radius: 50%;
   font-size: 10px;
   font-weight: 800;
+}
+
+.profile-container {
+  width: 100%;
+  min-height: 70vh;
+  box-sizing: border-box;
+}
+
+.profile-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .auth-card .error-message {

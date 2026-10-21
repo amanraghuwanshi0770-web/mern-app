@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import logoimage from "../assets/AR E-Commerce Shopping Cart Logo.png";
 

@@ -49,6 +49,21 @@ const userSchema = new mongoose.Schema(
    type: Boolean,
    default: false,
   },
+
+  emailVerified:{
+    type:Boolean,
+    default:false,
+  },
+
+  signupOtpHash:{
+    type:String,
+    default:null,
+  },
+
+  signupOtpExpires:{
+    type:Date,
+    default:null
+  }
   
 },{timestamps: true}
 );

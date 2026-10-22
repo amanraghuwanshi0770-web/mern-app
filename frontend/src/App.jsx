@@ -17,6 +17,7 @@ import MyOrder from "./pages/MyOrder";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerifyResetOtp from "./pages/VerifyResetOtp";
 import ResetPassword from "./pages/ResetPassword";
+import VerifyOtp from "./pages/VerifyOtp";
 
 function MainLayout() {
   return (
@@ -85,7 +86,9 @@ function App() {
           <PublicRoute>
           <ResetPassword/>
           </PublicRoute>}/>
- 
+
+          <Route path="/verify-otp" element={<VerifyOtp/>}/>
+      
           </Route>
 
         <Route path="/"element={<Navigate to="/login" replace />} />

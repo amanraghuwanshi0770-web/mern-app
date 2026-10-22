@@ -55,4 +55,7 @@ export const verifyPayment = (data) =>
 export const getMyOrders = () =>
   api.get("/api/order/my-orders");
 
+export const verifySignupOtp = (email, otp) =>
+  api.post("/api/auth/verify-signup-otp", { email, otp });
+
 export default api;

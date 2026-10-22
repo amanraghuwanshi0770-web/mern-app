@@ -9,18 +9,18 @@ import {validateName,validateEmail,validateSignupPassword,validateConfirmPasswor
 
 function Signup() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [nameError, setNameError] = useState("")
+  const [emailError, setEmailError] = useState("")
+  const [passwordError, setPasswordError] = useState("")
+  const [confirmPasswordError, setConfirmPasswordError] = useState("")
 
-  const [serverError, setServerError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -39,12 +39,18 @@ function Signup() {
     if (nameErr || emailErr || passwordErr || confirmErr) {
       return;
     }
-    setLoading(true);
+    const normalizedEmail = email.trim().toLowerCase();
+    setLoading(true)
+    
     try {
-      await signupUser(name,email,password);
-      navigate("/login");
+      await signupUser(name,email.trim().toLowerCase(),password);
+      navigate("/verify-otp",{
+      state:{email: email.trim().toLowerCase()}
+      })
+
     } catch (error) {
-      setServerError(error.response?.data?.message || "Signup failed. Please try again.");
+          console.error("Signup error:", error);
+      setServerError(error.response?.data?.message|| error.message || "Signup failed. Please try again.");
     }finally{
     setLoading(false)}
   };

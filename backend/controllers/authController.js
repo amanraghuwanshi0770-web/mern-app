@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import crypto from 'crypto';
+import PendingSignup from '../models/pendingSignup.modle.js'
 import transporter from '../config/nodemailer.js';
 
 
@@ -26,7 +27,8 @@ export const signup = async (req, res) => {
       return res.status(400).json({ 
       message: 'Password must be at least 6 characters and include a letter, number, and special character.' })}
 
-    const existingUser = await User.findOne({ email: email.toLowerCase() })
+    const normalizedEmail = email.trim().toLowerCase();
+    const existingUser = await User.findOne({ email: normalizedEmail })
 
     if (existingUser) {
       return res.status(400).json({ message: 'Email is already registered' })}
@@ -34,24 +36,50 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = await User.create({
-      name,
-      email,
+    const otp = crypto.randomInt(100000,1000000).toString()
+     const otpHash = crypto
+      .createHash("sha256")
+      .update(otp)
+      .digest("hex");
+
+      await PendingSignup.deleteOne({
+        email:normalizedEmail,
+      })
+
+      await PendingSignup.create({
+      name : name.trim(),
+      email:normalizedEmail,
       password: hashedPassword, 
-    })  
+      otpHash,
+      otpExpires: new Date(Date.now()+5*60*1000)
+      })
+    
+   try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: normalizedEmail,
+        subject: "Verify Your Email",
+        text: `Your OTP is ${otp}. It expires in 5 minutes.`,
+      });
+
+    } catch (emailError) {
+      await PendingSignup.deleteOne({
+        email:normalizedEmail
+      });
+      throw emailError;
+    }
 
     return res.status(201).json({
-      message: 'Account created successfully',
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-      }})
-
+      message: "OTP sent. Verify your email to create your account.",
+      email: normalizedEmail,
+    });
   } catch (error) {
-    console.error('Signup error:', error.message);
-    return res.status(500).json({ message: 'Something went wrong. Please try again.'});
-  }}
+    console.error("Signup error:", error.message);
+    return res.status(500).json({
+      message: "Unable to complete signup. Please try again.",
+    });
+  }
+};
 
 
 
@@ -71,6 +99,11 @@ export const login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
+
+    if (!user.emailVerified) {
+    return res.status(403).json({
+    message: "Please verify your email before logging in.",
+    })}
 
     const token = generateToken(user._id);
     return res.status(200).json({
@@ -243,3 +276,79 @@ export const resetPassword = async(req,res) => {
         message: "unable to reset password , please try again"
       })      
   }}
+
+
+
+export const verifySignupOtp = async (req, res) => {
+  try {
+    const { email, otp } = req.body
+
+    if (!email || !otp) {
+      return res.status(400).json({message: "Email and OTP are required"})
+    }
+
+    if (!/^\d{6}$/.test(String(otp))) {
+      return res.status(400).json({
+        message: "Enter a valid 6-digit OTP",
+      });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase()
+
+    const pendingUser = await PendingSignup.findOne({
+      email: normalizedEmail,
+    });
+
+    if (!pendingUser) {
+      return res.status(400).json({message: "Signup session expired. Please sign up again."})
+    }
+
+    if (pendingUser.otpExpires.getTime() < Date.now()) {
+      await PendingSignup.deleteOne({
+        _id: pendingUser._id,
+      })
+
+      return res.status(400).json({message: "OTP expired. Please sign up again."})
+    }
+
+    const otpHash = crypto
+      .createHash("sha256")
+      .update(String(otp))
+      .digest("hex")
+
+    if (otpHash !== pendingUser.otpHash) {
+      return res.status(400).json({
+        message: "Incorrect OTP.",
+      });
+    }
+    const existingUser = await User.findOne({
+      email: normalizedEmail,
+    })
+
+    if (existingUser) {
+      await PendingSignup.deleteOne({
+        _id: pendingUser._id,
+      })
+
+      return res.status(409).json({message: "Email is already registered. Please login."})
+    }
+
+    await User.create({
+      name: pendingUser.name,
+      email: pendingUser.email,
+      password: pendingUser.password,
+      emailVerified: true,
+    })
+
+    await PendingSignup.deleteOne({
+      _id: pendingUser._id,
+    })
+
+    return res.status(200).json({message: "Email verified and account created successfully. Please login.",})
+
+  } catch (error) {
+    console.error("Signup OTP error:", error.message)
+    return res.status(500).json({message: "OTP verification failed. Please try again."})
+  }
+}
+

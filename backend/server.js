@@ -13,6 +13,7 @@ dotenv.config();
 
 const app = express();
 
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://mern-app-six-zeta.vercel.app",
@@ -20,6 +21,7 @@ const allowedOrigins = [
     ? process.env.FRONTEND_URL.split(",").map((url) => url.trim())
     : []),
 ];
+
 
 app.use(
   cors({

@@ -43,9 +43,9 @@ function Signup() {
     setLoading(true)
     
     try {
-      await signupUser(name,email.trim(),normalizedEmail,password);
+      await signupUser(name,email.trim().toLowerCase(),password);
       navigate("/verify-otp",{
-      state:{email: normalizedEmail},
+      state:{email: email.trim().toLowerCase()}
       })
 
     } catch (error) {
@@ -99,4 +99,4 @@ function Signup() {
     </div>
   )
 }
-export default Signup;
+export default Signup;z

@@ -43,9 +43,9 @@ function Signup() {
     setLoading(true)
     
     try {
-      await signupUser(name,email.trim().toLowerCase(),password);
+      await signupUser(name,email.trim(),normalizedEmail,password);
       navigate("/verify-otp",{
-      state:{email: email.trim().toLowerCase()}
+      state:{email: normalizedEmail},
       })
 
     } catch (error) {

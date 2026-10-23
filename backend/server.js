@@ -15,8 +15,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://mern-app-six-zeta.vercel.app",
-  "https://mern-6gxj1rnuo-amanraghuwanshi0770-web.vercel.app",
+  "https://mern-app-seven-ochre.vercel.app",
   ...(process.env.FRONTEND_URL
     ? process.env.FRONTEND_URL.split(",").map((url) => url.trim())
     : []),

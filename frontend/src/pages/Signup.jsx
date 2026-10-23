@@ -49,7 +49,6 @@ function Signup() {
       })
 
     } catch (error) {
-          console.error("Signup error:", error);
       setServerError(error.response?.data?.message|| error.message || "Signup failed. Please try again.");
     }finally{
     setLoading(false)}

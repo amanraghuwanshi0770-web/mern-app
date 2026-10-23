@@ -22,8 +22,8 @@ api.interceptors.request.use((config) => {
 export const loginUser = (data) =>
   api.post("/api/auth/login", data);
 
-export const signupUser = (name, email, password) =>
-  api.post("/api/auth/signup", {name,email,password});
+export const signupUser = (data) =>
+  api.post("/api/auth/signup", data);
 
 export const forgetPassword = (email) =>
   api.post("/api/auth/forget-password",{email});

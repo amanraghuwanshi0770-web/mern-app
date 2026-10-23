@@ -2644,8 +2644,6 @@ form:not(.search-box) {
     max-width: 360px;
     flex: none;
   }
-
-  /* Checkout: single column */
   .checkout-page {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "title" "img" "name" "desc" "price" "form" "msg" "more";
@@ -2656,7 +2654,6 @@ form:not(.search-box) {
     max-height: 280px;
   }
 
-  /* Profile: sidebar on top */
   .profile-container { flex-direction: column; }
   .profile-sidebar { width: 100%; }
   .profile-content { width: 100%; }
@@ -2665,7 +2662,6 @@ form:not(.search-box) {
 }
 
 @media (max-width: 600px) {
-  /* Footer */
   .footer-container {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -2680,12 +2676,11 @@ form:not(.search-box) {
 
   .footer-bottom-links { justify-content: center; }
 
-  /* Orders */
+  
   .order-top { align-items: flex-start; }
   .order-statuses { gap: 8px; }
   .order-statuses .payment-status { text-align: right; }
 
-  /* Profile buttons full width */
   .save-buttons { flex-direction: column; }
 
   .save-btn,
@@ -2698,7 +2693,6 @@ form:not(.search-box) {
   .product-category { font-size: 0.66rem; padding: 3px 9px; }
 }
 
-/* Phones: 16px inputs stop iOS Safari from zooming in on focus */
 @media (max-width: 576px) {
   .form-input,
   .form-group input:where(:not([type="radio"]):not([type="checkbox"])),
@@ -2716,7 +2710,6 @@ form:not(.search-box) {
 
   .login-button { padding: 9px 16px; }
 
-  /* Cart item: stack quantity under the title block if too tight */
   .cart-item { align-items: flex-start; }
 }
 
@@ -2756,16 +2749,12 @@ form:not(.search-box) {
   .cart-page { width: calc(100% - 24px); }
 }
 
-/* Landscape phones: don't let the hero fill an entire short screen */
 @media (max-height: 480px) and (orientation: landscape) {
   .hero-wrapper { min-height: auto; padding-block: 36px; }
   .auth-container,
   .login-container { align-items: flex-start; }
 }
 
-/* =====================================================
-   ACCESSIBILITY & PRINT
-   ===================================================== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;

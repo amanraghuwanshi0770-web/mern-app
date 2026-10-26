@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import crypto from 'crypto';
 import PendingSignup from '../models/pendingSignup.modle.js'
-import transporter from '../config/nodemailer.js';
 import sendEmail from "../utils/sendEmail.js";
 
 
@@ -151,7 +150,7 @@ export const forgetpassword = async (req,res) => {
     await user.save()
   
     try {
-      await transporter.sendMail({
+      await sendEmail({
         from: process.env.EMAIL_USER,
         to: user.email,
         subject: "Password Reset OTP",

@@ -75,15 +75,11 @@ export const signup = async (req, res) => {
     });
   } catch (error) {
     console.error("Signup error:", error.message);
-  console.error("Error code:", error.code);
-  console.error("Error command:", error.command);
-  
     return res.status(500).json({
       message: "Unable to complete signup. Please try again.",
-    })
+    });
   }
-}
-
+};
 
 
 export const login = async (req, res) => {
@@ -121,7 +117,7 @@ export const login = async (req, res) => {
   } catch (error) {
     console.error('Login error:', error.message);
     return res.status(500).json({ message: 'Something went wrong. Please try again.'})}
-}
+};
 
 
 export const forgetpassword = async (req,res) => {
@@ -142,7 +138,6 @@ export const forgetpassword = async (req,res) => {
         message : "if the email is registered, an otp will be sent",
       })
     }
-
     const otp = crypto.randomInt(100000,1000000).toString()
     const otphash = crypto
     .createHash("sha256")

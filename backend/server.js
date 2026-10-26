@@ -13,28 +13,29 @@ dotenv.config();
 
 const app = express();
 
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://mern-app-six-zeta.vercel.app",
   ...(process.env.FRONTEND_URL
     ? process.env.FRONTEND_URL.split(",").map((url) => url.trim())
     : []),
-]
+];
 
 app.use(
   cors({
-    origin: (origin, cb) => {
+    origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
-        return cb(null, true);
+        return callback(null, true);
       }
-
-      return cb(new Error("Not allowed by CORS"));
+      return callback(new Error("Not allowed by CORS"));
     },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
 
 app.use(express.json());
 

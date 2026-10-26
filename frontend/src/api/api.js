@@ -3,8 +3,8 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: (
-    import.meta.env.VITE_API_URL ||
-    "https://mern-app-w353.onrender.com"
+  import.meta.env.VITE_API_URL ||
+  "https://mern-app-six-zeta.vercel.app"
   ).replace(/\/+$/, ""),
 
   headers: {

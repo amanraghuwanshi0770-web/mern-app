@@ -1,16 +1,17 @@
-
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: (
-  import.meta.env.VITE_API_URL ||
-  "https://mern-app-six-zeta.vercel.app"
-  ).replace(/\/+$/, ""),
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || (
+    import.meta.env.DEV
+      ? "http://localhost:5000"
+      : "https://mern-app-w353.onrender.com"
+  ),
   headers: {
     "Content-Type": "application/json",
   },
 });
+
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -26,7 +27,7 @@ export const loginUser = (data) =>
   api.post("/api/auth/login", data);
 
 export const signupUser = (name, email, password) =>
-  api.post("/api/auth/signup", { name, email, password });
+  api.post("/api/auth/signup", {name,email,password})
 
 export const forgetPassword = (email) =>
   api.post("/api/auth/forget-password", { email });

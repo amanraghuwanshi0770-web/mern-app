@@ -7,11 +7,12 @@ export default async function sendEmail({ to, subject, text }) {
   const { data, error } = await resend.emails.send({
     from: process.env.EMAIL_FROM,
     to: [to],
-    subject: subject,
-    text: text,
+    subject,
+    text,
   });
 
   if (error) {
+    console.error("Resend email error:", error);
     throw new Error(`Email sending failed: ${error.message}`);
   }
 

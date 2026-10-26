@@ -151,7 +151,6 @@ export const forgetpassword = async (req,res) => {
   
     try {
       await sendEmail({
-        from: process.env.EMAIL_USER,
         to: user.email,
         subject: "Password Reset OTP",
         text: `Your password reset OTP is ${otp}. It expires in 5 minutes. Do not share it with anyone.`,

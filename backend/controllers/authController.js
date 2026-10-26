@@ -73,7 +73,6 @@ export const signup = async (req, res) => {
       email: normalizedEmail,
     });
   } catch (error) {
-    console.error("Signup error:", error.message);
     return res.status(500).json({
       message: "Unable to complete signup. Please try again.",
     });
@@ -114,7 +113,6 @@ export const login = async (req, res) => {
       },
     })
   } catch (error) {
-    console.error('Login error:', error.message);
     return res.status(500).json({ message: 'Something went wrong. Please try again.'})}
 };
 

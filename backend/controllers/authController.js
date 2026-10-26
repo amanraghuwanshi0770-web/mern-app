@@ -5,6 +5,7 @@ import User from '../models/user.model.js';
 import crypto from 'crypto';
 import PendingSignup from '../models/pendingSignup.modle.js'
 import transporter from '../config/nodemailer.js';
+import sendEmail from "../utils/sendEmail.js";
 
 
 const generateToken = (userId) => {
@@ -55,8 +56,7 @@ export const signup = async (req, res) => {
       })
     
    try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+      await sendEmail({
         to: normalizedEmail,
         subject: "Verify Your Email",
         text: `Your OTP is ${otp}. It expires in 5 minutes.`,

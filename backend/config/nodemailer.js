@@ -14,4 +14,11 @@ const transporter = nodemailer.createTransport({
   socketTimeout: 30000,
 });
 
+transporter.verify()
+  .then(() => console.log("SMTP connection successful"))
+  .catch((err) => {
+    console.error("SMTP verify failed:", err.message);
+    console.error("SMTP error code:", err.code);
+  });
+
 export default transporter;

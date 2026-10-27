@@ -6,7 +6,6 @@ import crypto from 'crypto';
 import PendingSignup from '../models/pendingSignup.modle.js'
 import sendEmail from "../utils/sendEmail.js";
 
-
 const generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
     expiresIn: '7d', 

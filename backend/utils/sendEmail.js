@@ -52,10 +52,10 @@ export default async function sendEmail({ to, subject, text }) {
     return data;
   }
 
-//   return getTransporter().sendMail({
-//     from: `"${process.env.EMAIL_FROM_NAME || "My MERN App"}" <${process.env.EMAIL_USER}>`,
-//     to,
-//     subject,
-//     text,
-//   });
+  return getTransporter().sendMail({
+    from: `"${process.env.EMAIL_FROM_NAME || "My MERN App"}" <${process.env.EMAIL_USER}>`,
+    to,
+    subject,
+    text,
+  });
  }

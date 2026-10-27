@@ -37,7 +37,7 @@ function VerifyOtp() {
     if(e.key === "ArrowLeft" && index > 0){
         inputRefs.current[index -1 ]?.focus()}
     
-     if(e.key === "ArrowRight" && index > 5){
+     if(e.key === "ArrowRight" && index < 5){
         inputRefs.current[index +1 ]?.focus()}
 }
 
@@ -45,14 +45,14 @@ const handlePaste = (e) => {
     e.preventDefault()
 
     const pastedDigits = e.clipboardData
-    .getdata('text')
+    .getData('text')
     .replace(/\D/g,"")
     .slice(0,6)
 
     if(!pastedDigits) return 
     const updatedOtp = ["","","","","",""]
 
-    pastedDigits.split("").foreach((digit,index)=>{
+    pastedDigits.split("").forEach((digit,index)=>{
         updatedOtp[index] = digit
     })
 

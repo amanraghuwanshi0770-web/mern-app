@@ -73,9 +73,10 @@ export const signup = async (req, res) => {
       email: normalizedEmail,
     });
   } catch (error) {
-        console.error("Signup error:", error.message);
+    console.error("Signup error:", error.message);
     return res.status(500).json({
       message: "Unable to complete signup. Please try again.",
+      debug: error.message, // TEMPORARY: debugging ke baad hata dena
     });
   }
 };
@@ -347,4 +348,3 @@ export const verifySignupOtp = async (req, res) => {
     return res.status(500).json({message: "OTP verification failed. Please try again."})
   }
 }
-

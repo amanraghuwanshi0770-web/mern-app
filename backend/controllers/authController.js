@@ -62,6 +62,7 @@ export const signup = async (req, res) => {
       });
 
     } catch (emailError) {
+      console.log('emailError --', emailError)
       await PendingSignup.deleteOne({
         email:normalizedEmail
       });
@@ -73,11 +74,10 @@ export const signup = async (req, res) => {
       email: normalizedEmail,
     });
   } catch (error) {
-        console.error("Signup error:", error.message);
+    console.log('from sign up --', error)
+
     return res.status(500).json({
       message: "Unable to complete signup. Please try again.",
-            debug: error.message,
-
     });
   }
 };

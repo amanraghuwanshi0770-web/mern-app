@@ -1,31 +1,44 @@
-import nodemailer from "nodemailer";
 import { Resend } from "resend";
-
-// EMAIL_PROVIDER=gmail  (default) -> Gmail SMTP, kisi bhi user ko email bhej sakta hai
-// EMAIL_PROVIDER=resend           -> Resend, but sirf tab jab apna domain Resend me verify ho
-
-let transporter;
-const getTransporter = () => {
-  if (!transporter) {
-    transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // Gmail App Password
-      },
-    });
-  }
-  return transporter;
-};
-
 let resend;
 const getResend = () => {
   if (!resend) resend = new Resend(process.env.RESEND_API_KEY);
   return resend;
 };
 
+const sendWithBrevo = async ({ to, subject, text }) => {
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "api-key": process.env.BREVO_API_KEY,
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+    body: JSON.stringify({
+      sender: {
+        name: process.env.EMAIL_FROM_NAME || "My MERN App",
+        email: process.env.BREVO_SENDER_EMAIL,
+      },
+      to: [{ email: to }],
+      subject,
+      textContent: text,
+    }),
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`Brevo email failed (${res.status}): ${body}`);
+  }
+  return res.json();
+};
+
 export default async function sendEmail({ to, subject, text }) {
-  if (process.env.EMAIL_PROVIDER === "resend") {
+  const provider = process.env.EMAIL_PROVIDER;
+
+  if (provider === "brevo") {
+    return sendWithBrevo({ to, subject, text });
+  }
+
+  if (provider === "resend") {
     const { data, error } = await getResend().emails.send({
       from: process.env.EMAIL_FROM,
       to: [to],

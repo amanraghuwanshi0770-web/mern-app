@@ -15,7 +15,6 @@ const getResend = () => {
 };
 
 async function sendWithBrevo({ to, subject, text }) {
-  console.log("sender:", JSON.stringify(process.env.BREVO_SENDER_EMAIL));
   if (
     !process.env.BREVO_API_KEY ||
     !process.env.BREVO_SENDER_EMAIL

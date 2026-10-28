@@ -63,11 +63,15 @@ const userSchema = new mongoose.Schema(
   signupOtpExpires:{
     type:Date,
     default:null
-  }
-  
-},{timestamps: true}
-);
+  },
+   role: {
+  type: String,
+  enum: ["user", "admin"],
+  default: "user",
+  },
 
-const User = mongoose.model('User', userSchema);
+},{timestamps: true})
+
+const User = mongoose.model('User', userSchema)
 
 export default User;

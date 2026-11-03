@@ -8,6 +8,7 @@ import ProductRoutes from "./routes/product.route.js";
 import profileRoutes from "./routes/profile.route.js";
 import orderRoutes from "./routes/order.route.js";
 import paymentRoutes from "./routes/payment.route.js";
+import adminRoutes from './routes/adminRoutes.js'
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use("/api/products", ProductRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/admin",adminRoutes)
 
 app.get("/", (req, res) => {
   res.send("MERN Auth Backend is running...");

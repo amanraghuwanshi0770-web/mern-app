@@ -32,7 +32,7 @@ function Profile() {
     try {
       const response = await updateprofile({ name, phone, address });
       setUser(response.data.user);
-      setEditMode(false);
+      setEdit(false);
       setMessage("Profile updated successfully");
     } catch (error) {
       console.log(error);

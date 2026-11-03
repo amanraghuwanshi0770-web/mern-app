@@ -1,3 +1,6 @@
+
+import "./index.css";
+
 import { BrowserRouter, Routes,Route, Navigate, Outlet,} from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -10,7 +13,6 @@ import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import { ProtectedRoute, PublicRoute } from "./components/ProtectedRoute";
 
-import "./index.css";
 import Sidebar from "./pages/Sidebar";
 import Checkout from "./pages/CheckOut";
 import MyOrder from "./pages/MyOrder";
@@ -18,6 +20,14 @@ import ForgotPassword from "./pages/ForgotPassword";
 import VerifyResetOtp from "./pages/VerifyResetOtp";
 import ResetPassword from "./pages/ResetPassword";
 import VerifyOtp from "./pages/VerifyOtp";
+
+import AdminLogin from "./pages/AdminPenal/AdminLogin";
+import AdminDashboard from "./pages/AdminPenal/AdminDashboard";
+import AdminUsers from "./pages/AdminPenal/AdminUsers";
+import AdminProducts from "./pages/AdminPenal/AdminProducts";
+import AdminOrders from "./pages/AdminPenal/AdminOrders";
+import AdminLayout from "./pages/AdminPenal/AdminLayout";
+import AdminRoute from "./components/AdminRoute";
 
 function MainLayout() {
   return (
@@ -32,63 +42,51 @@ function App() {
         <Route path="/signup" element={ <PublicRoute><Signup /></PublicRoute>}/>
 
         <Route element={<MainLayout />}>
+
           <Route path="/home" element={
-             <ProtectedRoute>
-             <Home/> 
-             </ProtectedRoute>}/>
+             <ProtectedRoute> <Home/> </ProtectedRoute>}/>
 
           <Route path="/products" element={ 
-            <ProtectedRoute>
-               <Products/>
-             </ProtectedRoute> } />
+            <ProtectedRoute> <Products/> </ProtectedRoute> }/>
 
           <Route path="/features" element={ 
-            <ProtectedRoute> 
-              <Features/>
-             </ProtectedRoute>} />
+            <ProtectedRoute> <Features/> </ProtectedRoute>}/>
 
           <Route path="/about" element={ 
-            <ProtectedRoute> 
-              <About/> 
-            </ProtectedRoute>} />
+            <ProtectedRoute> <About/> </ProtectedRoute>}/>
 
           <Route path="/Sidebar" element={
-            <ProtectedRoute>
-               <Sidebar/> 
-            </ProtectedRoute>} />
+            <ProtectedRoute> <Sidebar/> </ProtectedRoute>}/>
 
           <Route path="/profile" element={
-          <ProtectedRoute>
-            <Profile/>
-          </ProtectedRoute>}/>
+            <ProtectedRoute> <Profile/> </ProtectedRoute>}/>
 
           <Route path="/checkout" element={
-          <ProtectedRoute>
-            <Checkout/>
-          </ProtectedRoute>}/>
+            <ProtectedRoute> <Checkout/> </ProtectedRoute>}/>
 
           <Route path="/myorder" element={
-          <ProtectedRoute>
-            <MyOrder/>
-          </ProtectedRoute>}/>
+            <ProtectedRoute> <MyOrder/> </ProtectedRoute>}/>
 
           <Route path="/forgot-password" element={
-          <PublicRoute>
-          <ForgotPassword />
-          </PublicRoute>}/>
+            <PublicRoute> <ForgotPassword/> </PublicRoute>}/>
 
-           <Route path="/verify-reset-otp" element={
-          <PublicRoute>
-          <VerifyResetOtp />
-          </PublicRoute>}/>
+          <Route path="/verify-reset-otp" element={
+            <PublicRoute> <VerifyResetOtp/> </PublicRoute>}/>
 
-           <Route path="/reset-password" element={
-          <PublicRoute>
-          <ResetPassword/>
-          </PublicRoute>}/>
+          <Route path="/reset-password" element={
+            <PublicRoute> <ResetPassword/> </PublicRoute>}/>
 
+          </Route>
+
+          <Route path="/admin-login" element={<AdminLogin />}/>
           <Route path="/verify-otp" element={<VerifyOtp/>}/>
-      
+
+          <Route path="/admin" element={<AdminRoute> <AdminLayout /> </AdminRoute>}>
+            <Route index element={<Navigate to="dashboard" replace />}/>
+            <Route path="dashboard" element={<AdminDashboard />}/>
+            <Route path="users" element={<AdminUsers />}/>
+            <Route path="products" element={<AdminProducts />}/>
+            <Route path="orders" element={<AdminOrders />}/>
           </Route>
 
         <Route path="/"element={<Navigate to="/login" replace />} />

@@ -60,6 +60,25 @@ export const getMyOrders = () =>
   api.get("/api/order/my-orders");
 
 export const verifySignupOtp = (email, otp) =>
-  api.post("/api/auth/verify-signup-otp", { email, otp });
+  api.post("/api/auth/verify-signup-otp", { email, otp })
+
+
+export const getAdminDashboard = () =>
+  api.get("/api/admin/dashboard")
+
+export const getAdminUsers = () =>
+  api.get("/api/admin/users")
+
+export const getAdminOrders = () =>
+  api.get("/api/admin/orders")
+
+export const createAdminProduct = (data) =>
+  api.post("/api/products", data)
+
+export const updateAdminProduct = (id, data) =>
+  api.put(`/api/products/${id}`, data)
+
+export const deleteAdminProduct = (id) =>
+  api.delete(`/api/products/${id}`)
 
 export default api;

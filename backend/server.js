@@ -9,11 +9,10 @@ import profileRoutes from "./routes/profile.route.js";
 import orderRoutes from "./routes/order.route.js";
 import paymentRoutes from "./routes/payment.route.js";
 import adminRoutes from './routes/adminRoutes.js'
+import categoryRoutes from "./routes/categoryRoutes.js"
 
 dotenv.config();
-
 const app = express();
-
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -31,15 +30,13 @@ app.use(
       }
       return callback(new Error(`Not allowed by CORS: ${origin}`));
     },
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
 
-
 app.use(express.json());
-
 connectDB();
 
 app.use("/api/auth", authRoutes);
@@ -48,6 +45,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/admin",adminRoutes)
+app.use("/api/categories",categoryRoutes)
 
 app.get("/", (req, res) => {
   res.send("MERN Auth Backend is running...");

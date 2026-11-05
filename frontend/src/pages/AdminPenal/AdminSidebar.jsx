@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate ,Link} from "react-router-dom";
 
 function AdminSidebar() {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ function AdminSidebar() {
         <NavLink to="/admin/orders">Orders</NavLink>
       </nav>
 
+      <Link className="backtohome " to="/login">Back to Home</Link>
       <button className="admin-logout" onClick={handleLogout}>
         Logout
       </button>

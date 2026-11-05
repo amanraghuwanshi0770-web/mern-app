@@ -28,6 +28,8 @@ import AdminProducts from "./pages/AdminPenal/AdminProducts";
 import AdminOrders from "./pages/AdminPenal/AdminOrders";
 import AdminLayout from "./pages/AdminPenal/AdminLayout";
 import AdminRoute from "./components/AdminRoute";
+import CategoryProducts from "./pages/CategoryProducts";
+import Category from "./pages/Category";
 
 function MainLayout() {
   return (
@@ -88,6 +90,17 @@ function App() {
             <Route path="products" element={<AdminProducts />}/>
             <Route path="orders" element={<AdminOrders />}/>
           </Route>
+
+          <Route path="/category/:categoryId" element={
+          <ProtectedRoute>
+          <Category/>
+         </ProtectedRoute>}/>
+
+          <Route path="/category/:categoryId/products" element={
+          <ProtectedRoute>
+          <CategoryProducts/>
+          </ProtectedRoute>}/> 
+
 
         <Route path="/"element={<Navigate to="/login" replace />} />
       </Routes>

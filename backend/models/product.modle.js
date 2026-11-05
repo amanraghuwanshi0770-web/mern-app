@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const productSchmea = new mongoose.Schema({
     name:{
@@ -11,7 +11,8 @@ const productSchmea = new mongoose.Schema({
         required:true,
     },
     category:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Category", 
         required:true,
     },
     description:{
@@ -21,9 +22,7 @@ const productSchmea = new mongoose.Schema({
     image:[{
         type:String,
         required:true,
-    }],
-        
-    
+    }],  
     stock:{
         type:Number,
         required:true,

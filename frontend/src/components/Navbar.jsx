@@ -27,6 +27,9 @@ function Navbar() {
       </div>
 
       <ul className="nav-menu">
+        <li><Link to="/mobiles">Mobiles</Link></li>
+        <li><Link to="/electronics">Electronics</Link></li>
+        <li><Link to="/beauty">Beauty</Link></li>
         <li><Link to="/products">Products</Link></li>
         <li><Link to="/Features">Features</Link></li>
         <li><Link to="/about">About</Link></li>

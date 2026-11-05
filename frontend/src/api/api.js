@@ -81,4 +81,19 @@ export const updateAdminProduct = (id, data) =>
 export const deleteAdminProduct = (id) =>
   api.delete(`/api/products/${id}`)
 
+export const getAllCategories = () =>
+  api.get("/api/categories");
+
+export const getMainCategories = () =>
+  api.get("/api/categories/main");
+
+export const getCategoryById = (id) =>
+  api.get(`/api/categories/${id}`);
+
+export const getSubCategories = (parentCategoryId) =>
+  api.get(`/api/categories/${parentCategoryId}/subcategories`);
+
+export const getProductsByCategory = (categoryId) =>
+  api.get(`/api/products/category/${categoryId}`);
+
 export default api;

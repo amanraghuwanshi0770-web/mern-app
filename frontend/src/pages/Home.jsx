@@ -1,8 +1,8 @@
 import image1 from '../assets/imgae1.png'
 import { Link } from "react-router-dom";
+import { Smartphone, Laptop, Sparkles } from "lucide-react";
 
 function Home() {
-
   return (
     <div>
       <div className="hero-wrapper">
@@ -28,6 +28,30 @@ function Home() {
           </div>
         </div>
       </div>
+       <ul className="home-product">
+
+        <li>
+          <Link to="/mobiles">
+            <Smartphone size={35} />
+            <span>Mobiles</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/electronics">
+            <Laptop size={35} />
+            <span>Electronics</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link to="/beauty">
+            <Sparkles size={35} />
+            <span>Beauty</span>
+          </Link>
+        </li>
+      </ul>
+      
     </div>
   )
 }

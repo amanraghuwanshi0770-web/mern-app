@@ -90,8 +90,8 @@ if (!user) {
 
             <div className="gender-box">
               <h3>Your Gender</h3>
-              <label><input type="radio" name="gender" /> Male</label>
-              <label><input type="radio" name="gender" /> Female</label>
+              <label><input type="radio" name="gender"/> Male</label>
+              <label><input type="radio" name="gender"/> Female</label>
             </div>
           </section>
 

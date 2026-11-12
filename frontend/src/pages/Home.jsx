@@ -51,7 +51,6 @@ function Home() {
           </Link>
         </li>
       </ul>
-      
     </div>
   )
 }

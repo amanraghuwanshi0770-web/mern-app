@@ -183,8 +183,7 @@ function AdminProducts() {
               onClick={() => {
                 setEditId(null);
                 setForm(emptyForm);
-              }}
-            >
+              }}>
               Cancel Edit
             </button>
           )}

@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const productSchmea = new mongoose.Schema({
     name:{
@@ -8,11 +8,6 @@ const productSchmea = new mongoose.Schema({
     },
     price:{
         type:Number,
-        required:true,
-    },
-    category:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Category", 
         required:true,
     },
     description:{

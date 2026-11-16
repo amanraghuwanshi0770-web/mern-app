@@ -27,11 +27,9 @@ function Products() {
   {fetchProducts()},
   []);
 
-  const filteredProducts = products.filter((product)=>{
-    const nameMatch = product.name?.toLowerCase().includes(search.toLocaleLowerCase());
-    const categoryMatch = product.category?.toLowerCase().includes(search.toLocaleLowerCase());
-    return nameMatch || categoryMatch
-  })
+  const filteredProducts = products.filter((product) => {
+    return product.name?.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <div className="products-page">
@@ -84,7 +82,6 @@ function Products() {
         <FaArrowLeft/>
        </button>
 
-       <span className="product-category">{product.category}</span>
        <p className="product-description"> {product.description}</p>
        <p className="under-line"></p>
        

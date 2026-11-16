@@ -1,30 +1,29 @@
 import Product from "../models/product.modle.js";
-import mongoose from "mongoose";
 
  const createproduct = async (req, res) => {
   try {
-    const {
-      name,price,
-      category,description,
-      image,stock,} = req.body;
+    const { name, price, description, image, stock } = req.body;
 
     const product = await Product.create({
-      name,price,
-      category,description,
-      image,stock,
+      name,
+      price,
+      description,
+      image,
+      stock,
     });
 
     res.status(201).json({
       message: "Product created successfully",
       product,
-    });
+    })
+
   } catch (error) {
     res.status(500).json({
       message: "Failed to create product",
       error: error.message,
-    });
+    })
   }
-};
+}
 
 const getProducts = async (req, res) => {
   try {
@@ -69,38 +68,5 @@ const updateProducts = async (req, res) => {
     return res.status(500).json({message: "Failed to detete product",error: error.message});
   }}
 
- const getProductsByCategory = async (req, res) => {
-    try {
-        const { categoryId } = req.params;
-
-        if (!mongoose.Types.ObjectId.isValid(categoryId)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid category ID",
-            });
-        }
-
-        const products = await Product.find({
-            category: categoryId,
-        })
-        .populate("category", "name")
-        .sort({ createdAt: -1 });
-
-        res.status(200).json({
-            success: true,
-            totalProducts: products.length,
-            products,
-        });
-
-    } catch (error) {
-        console.log("Get products by category error:", error);
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch products",
-        });
-    }
-};
-
-export {getProducts,createproduct,updateProducts,deleteProduct,getProductsByCategory}
+export { getProducts, createproduct, updateProducts, deleteProduct };
 

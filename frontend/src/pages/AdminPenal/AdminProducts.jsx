@@ -4,7 +4,6 @@ import {getProducts, createAdminProduct,updateAdminProduct,deleteAdminProduct} f
 const emptyForm = {
   name: "",
   price: "",
-  category: "",
   description: "",
   image: "",
   stock: "",
@@ -42,19 +41,18 @@ function AdminProducts() {
     setForm({
       name: product.name || "",
       price: product.price ?? "",
-      category: product.category || "",
       description: product.description || "",
       image: (product.image || []).join(", "),
       stock: product.stock ?? "",
     });
-    setMessage("");
-    setError("");
+    setMessage("")
+    setError("")
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setMessage("");
+    e.preventDefault()
+    setError("")
+    setMessage("")
 
     const productData = {
       ...form,
@@ -139,14 +137,6 @@ function AdminProducts() {
           />
 
           <input
-            name="category"
-            placeholder="Category"
-            value={form.category}
-            onChange={handleChange}
-            required
-          />
-
-          <input
             name="stock"
             type="number"
             min="0"
@@ -202,7 +192,6 @@ function AdminProducts() {
                 <tr>
                   <th>Image</th>
                   <th>Name</th>
-                  <th>Category</th>
                   <th>Price</th>
                   <th>Stock</th>
                   <th>Actions</th>
@@ -225,7 +214,6 @@ function AdminProducts() {
                         )}
                       </td>
                       <td>{product.name}</td>
-                      <td>{product.category}</td>
                       <td>₹{product.price}</td>
                       <td>{product.stock}</td>
                       <td>
@@ -247,7 +235,7 @@ function AdminProducts() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6">No products found</td>
+                    <td colSpan="5">No products found</td>
                   </tr>
                 )}
               </tbody>

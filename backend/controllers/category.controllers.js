@@ -1,4 +1,4 @@
-import Category from "../models/category.modle";
+import Category from "../models/category.modle.js";
 
 const createCategory =  async (req,res) => {
     try {
@@ -23,8 +23,6 @@ const createCategory =  async (req,res) => {
             slug,
             parentCategory:parentCategory || null,
             image : req.file 
-            ? `/uploads/${req.file.filename}`
-            : ""
         })
 
         res.status(201).json({
@@ -56,7 +54,9 @@ const getMainCategory = async (req,res) => {
         const categories = await Category.find({
             parentCategory: null
         })
-        return res.status(200).json(categories)  
+        return res.status(200).json({
+              success : true,
+              categories})  
 
     } catch (error) {
         res.status(500).json({

@@ -76,13 +76,13 @@ const verifyPayment = async (req, res) => {
         status: "Placed",
         razorpayPaymentId: razorpay_payment_id,
       }
-    );
+    )  
 
-    res.json({ message: "Payment successful" });
+    res.json({ message: "Payment successful" })
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Payment verify nahi ho paya" });
+    console.log(error)
+    res.status(500).json({ message: "Payment verify nahi ho paya" })
   }
 }
 
-export { createPaymentOrder, verifyPayment };
+export { createPaymentOrder, verifyPayment }

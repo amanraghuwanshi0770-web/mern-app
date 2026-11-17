@@ -9,9 +9,10 @@ import profileRoutes from "./routes/profile.route.js";
 import orderRoutes from "./routes/order.route.js";
 import paymentRoutes from "./routes/payment.route.js";
 import adminRoutes from './routes/adminRoutes.js'
+import categoryRoutes from './routes/categoryroute.js'
 
-dotenv.config();
-const app = express();
+dotenv.config()
+const app = express()
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -43,14 +44,15 @@ app.use("/api/products", ProductRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/payment", paymentRoutes);
-app.use("/api/admin",adminRoutes)
+app.use("/api/admin", adminRoutes)
+app.use("/api/category", categoryRoutes)
 
 app.get("/", (req, res) => {
-  res.send("MERN Auth Backend is running...");
-});
+  res.send("MERN Auth Backend is running...")
+})
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`)
 });

@@ -45,7 +45,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/admin", adminRoutes)
-app.use("/api/category", categoryRoutes)
+app.use("/api/categories", categoryRoutes)
 
 app.get("/", (req, res) => {
   res.send("MERN Auth Backend is running...")

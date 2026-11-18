@@ -79,6 +79,21 @@ export const updateAdminProduct = (id, data) =>
   api.put(`/api/products/${id}`, data)
 
 export const deleteAdminProduct = (id) =>
-  api.delete(`/api/products/${id}`);
+  api.delete(`/api/products/${id}`)
+
+export const getCategories = (data) => 
+  api.get('/api/categories',data)
+
+export const getMainCategories = (data) =>
+  api.get('/api/categories/main',data)
+
+export const createCategory= (data) => 
+  api.post("/api/categories",data)
+
+export const updateCategory = (id,data) => 
+  api.put(`/api/categories/${id}`,data)
+
+export const deleteCategory = (id) => 
+  api.delete(`/api/categories/${id}`)
 
 export default api;

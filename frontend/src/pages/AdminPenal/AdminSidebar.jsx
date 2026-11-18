@@ -18,9 +18,10 @@ function AdminSidebar() {
         <NavLink to="/admin/users">Users</NavLink>
         <NavLink to="/admin/products">Products</NavLink>
         <NavLink to="/admin/orders">Orders</NavLink>
+        <NavLink to="/admin/categories">Categories</NavLink>
       </nav>
 
-      <Link className="backtohome " to="/login">Back to Home</Link>
+      <Link className="backtohome " to="/">Back to Home</Link>
       <button className="admin-logout" onClick={handleLogout}>
         Logout
       </button>

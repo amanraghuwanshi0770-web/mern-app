@@ -17,8 +17,8 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await getProducts();
-      setProducts(response.data.products);
+      const response = await getProducts()
+      setProducts(response.data.products)
     } catch (error) {
       console.log(error);
     }}

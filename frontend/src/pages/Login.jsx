@@ -38,7 +38,7 @@ function Login() {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       setServerError(error.response?.data?.message || error.message || "Login failed. Please try again.");
     }finally{

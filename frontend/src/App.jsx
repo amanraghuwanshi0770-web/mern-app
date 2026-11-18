@@ -28,6 +28,7 @@ import AdminProducts from "./pages/AdminPenal/AdminProducts";
 import AdminOrders from "./pages/AdminPenal/AdminOrders";
 import AdminLayout from "./pages/AdminPenal/AdminLayout";
 import AdminRoute from "./components/AdminRoute";
+// import AdminCategories from "./pages/AdminPenal/AdminCategories";
 
 function MainLayout() {
   return (
@@ -43,7 +44,7 @@ function App() {
 
         <Route element={<MainLayout />}>
 
-          <Route path="/home" element={
+          <Route path="/" element={
              <ProtectedRoute> <Home/> </ProtectedRoute>}/>
 
           <Route path="/products" element={ 
@@ -86,6 +87,7 @@ function App() {
             <Route path="dashboard" element={<AdminDashboard />}/>
             <Route path="users" element={<AdminUsers />}/>
             <Route path="products" element={<AdminProducts />}/>
+            {/* <Route path="categories" element={<AdminCategories />} /> */}
             <Route path="orders" element={<AdminOrders />}/>
           </Route>
 

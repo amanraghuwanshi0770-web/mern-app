@@ -4,6 +4,9 @@ import logoimage from "../assets/AR E-Commerce Shopping Cart Logo.png";
 import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
+import { CiMobile1 } from "react-icons/ci";
+import { FaLaptop } from "react-icons/fa";
+import { LuLamp } from "react-icons/lu";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -21,15 +24,15 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/home">
+        <Link to="/">
           <img src={logoimage} alt="AR E-Commerce Logo" />
         </Link>
       </div>
 
       <ul className="nav-menu">
-        <li><Link to="/products">Products</Link></li>
-        <li><Link to="/Features">Features</Link></li>
-        <li><Link to="/about">About</Link></li>
+        <li><Link to="/mobiles"><CiMobile1/>Mobiles</Link></li>
+        <li><Link to="/electronics"><FaLaptop/>Electronics</Link></li>
+        <li><Link to="/home"><LuLamp/>Home</Link></li>
       </ul>
 
       <form className="search-box" onSubmit={handleSearch}>

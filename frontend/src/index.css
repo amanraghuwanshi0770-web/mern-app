@@ -1033,6 +1033,3 @@ form.admin-product-form { display: grid; grid-template-columns: repeat(2, minmax
 .nav-menu li a:hover svg {
   transform: translateY(-3px);
 }
-
-
-

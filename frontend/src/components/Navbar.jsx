@@ -4,26 +4,11 @@ import logoimage from "../assets/AR E-Commerce Shopping Cart Logo.png";
 import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { getMainCategories } from "../api/api"; // Aapka api helper function
-import { BiCategoryAlt } from "react-icons/bi"; // Generic category icon fallback ke liye
 
 function Navbar() {
   const navigate = useNavigate()
   const { cart } = useContext(CartContext)
   const [search, setsearch] = useState('')
-  const [navCategories, setNavCategories] = useState([])
-
-  useEffect(() => {
-    const fetchNavbarCategories = async () => {
-      try {
-        const res = await getMainCategories();
-        setNavCategories(res.data.categories || []);
-      } catch (error) {
-        console.log('Error fetching navbar categories:', error);
-      }
-    };
-    fetchNavbarCategories();
-  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -41,21 +26,6 @@ function Navbar() {
           <img src={logoimage} alt="AR E-Commerce Logo" />
         </Link>
       </div>
-
-      <ul className="nav-menu">
-        {navCategories.length === 0 ? (
-          <p style={{ fontSize: '14px', color: '#888' }}>Loading categories...</p>
-        ) : (
-          navCategories.map((cat) => (
-            <li key={cat._id}>
-              {/* Slug ya ID ke base par route karein */}
-              <Link to={`/category/${cat.slug}`}>
-                <BiCategoryAlt /> {cat.name}
-              </Link>
-            </li>
-          ))
-        )}
-      </ul>
 
       <form className="search-box" onSubmit={handleSearch}>
         <input 

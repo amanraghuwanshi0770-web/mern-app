@@ -1,26 +1,39 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../context/CartContext";
 import logoimage from "../assets/AR E-Commerce Shopping Cart Logo.png";
 import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { CiMobile1 } from "react-icons/ci";
-import { FaLaptop } from "react-icons/fa";
-import { LuLamp } from "react-icons/lu";
+import { getMainCategories } from "../api/api"; // Aapka api helper function
+import { BiCategoryAlt } from "react-icons/bi"; // Generic category icon fallback ke liye
 
 function Navbar() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const { cart } = useContext(CartContext)
-  const [search,setsearch] = useState('')
+  const [search, setsearch] = useState('')
+  const [navCategories, setNavCategories] = useState([])
+
+  useEffect(() => {
+    const fetchNavbarCategories = async () => {
+      try {
+        const res = await getMainCategories();
+        setNavCategories(res.data.categories || []);
+      } catch (error) {
+        console.log('Error fetching navbar categories:', error);
+      }
+    };
+    fetchNavbarCategories();
+  }, []);
 
   const handleSearch = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if(search.trim() !== ''){
       navigate(`/products?search=${search.trim()}`)
     } else {
       navigate("/products")
     }
-  }
+  };
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -30,15 +43,27 @@ function Navbar() {
       </div>
 
       <ul className="nav-menu">
-        <li><Link to="/mobiles"><CiMobile1/>Mobiles</Link></li>
-        <li><Link to="/electronics"><FaLaptop/>Electronics</Link></li>
-        <li><Link to="/home"><LuLamp/>Home</Link></li>
+        {navCategories.length === 0 ? (
+          <p style={{ fontSize: '14px', color: '#888' }}>Loading categories...</p>
+        ) : (
+          navCategories.map((cat) => (
+            <li key={cat._id}>
+              {/* Slug ya ID ke base par route karein */}
+              <Link to={`/category/${cat.slug}`}>
+                <BiCategoryAlt /> {cat.name}
+              </Link>
+            </li>
+          ))
+        )}
       </ul>
 
       <form className="search-box" onSubmit={handleSearch}>
-        <input type="text" placeholder="Search products..." value={search}
-        onChange={(e)=> setsearch(e.target.value)}/>
-        <button type="button">
+        <input 
+          type="text" 
+          placeholder="Search products..." 
+          value={search}
+          onChange={(e) => setsearch(e.target.value)}/>
+        <button type="submit">
           <CiSearch />
         </button>
       </form>
@@ -56,7 +81,7 @@ function Navbar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Navbar;

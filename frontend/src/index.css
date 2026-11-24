@@ -1889,3 +1889,30 @@ input:focus-visible {
     transition: none;
   }
 }
+/* Admin Icon */
+.admin-icon {
+  display: flex;
+  align-items: center;
+}
+
+.admin-icon a {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: white;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  font-size: 22px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.admin-icon a:hover {
+  background: var(--brand);
+  color: white;
+  border-color: var(--brand);
+  transform: translateY(-2px);
+}

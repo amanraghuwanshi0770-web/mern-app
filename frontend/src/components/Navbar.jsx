@@ -38,23 +38,18 @@ function Navbar() {
           type="text"
           placeholder="Search products..."
           value={search}
-          onChange={(e) => setsearch(e.target.value)}
-        />
-        <button type="submit">
-          <CiSearch />
-        </button>
+          onChange={(e) => setsearch(e.target.value)}/>
+        <button type="submit"><CiSearch /></button>
       </form>
 
       <div className="nav-actions">
         <div
           className="cart"
           onClick={() => navigate("/Sidebar")}
-          title="Shopping Cart"
-        >
+          title="Shopping Cart">
           🛒 <span>{cart?.length || 0}</span>
         </div>
 
-        {/* Admin Icon - Only for Admin */}
         {user?.role === "admin" && (
           <div className="admin-icon" title="Admin Panel">
             <Link to="/admin">

@@ -26,6 +26,7 @@ function PasswordField({
           <span className="error-icon">!</span>
           <span>{error}</span>
         </div>
-      )}</div>
+      )}
+    </div>
   )}
 export default PasswordField
